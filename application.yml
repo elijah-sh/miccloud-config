@@ -7,7 +7,7 @@ spring:
 spring:
  profiles: dev  # 开发环境
   application:
-    name: miccloud-config-hand-test  
+    name: miccloud-config-hand-dev  
     
 ---
 spring:
