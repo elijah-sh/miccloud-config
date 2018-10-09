@@ -5,29 +5,81 @@ spring:
   
 ---
 server:
- port: 8201
+ port: 8001
 
 spring:
  profiles: dev  # 开发环境
  application:
     name: miccloud-config-client
-    
+ datasource:
+    type: com.alibaba.druid.pool.DruidDataSource    # 配置当前要使用的数据源的操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver      # 配置MySQL的驱动程序类
+    url: jdbc:mysql://localhost:3306/cloudDB01           # 数据库连接地址
+    username: root                                  # 数据库用户名
+    password: 123456                            # 数据库连接密码
+    dbcp2:                                          # 进行数据库连接池的配置
+      min-idle: 5                                   # 数据库连接池的最小维持连接数
+      initial-size: 5                               # 初始化提供的连接数
+      max-total: 5                                  # 最大的连接数
+      max-wait-millis: 200                          # 等待连接获取的最大超时时间   
+
+mybatis:
+   config-location: classpath:mybatis/mybatis.cfg.xml    #mybatis 配置文件所在路径
+   type-aliases-package: com.entities                  #所有Entity别名类所在包
+   mapper-locations:
+   - classpath:mybatis/mapper/**/*.xml
+
 eureka:
   client:    # 客户端注册到Eureka列表内
     service-url:
-      defaultZone: http://eureka-dev.com:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: miccloud-config-dept8001   # 自定义服务名称信息
+    prefer-ip-address: true     # 访问路径可以提升显示IP地址
+
+info:
+  app.name: miccloud
+  company.name: HAND
+  build.artifactid: ${project.artifactId}
+  build.version: ${project.version}
   
 ---
 server:
- port: 8202
+ port: 8001
 
 spring:
  profiles: test  # 测试环境
  application:
-   name: miccloud-config-client
-    
+    name: miccloud-config-client
+ datasource:
+    type: com.alibaba.druid.pool.DruidDataSource    # 配置当前要使用的数据源的操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver      # 配置MySQL的驱动程序类
+    url: jdbc:mysql://localhost:3306/cloudDB02           # 数据库连接地址
+    username: root                                  # 数据库用户名
+    password: 123456                            # 数据库连接密码
+    dbcp2:                                          # 进行数据库连接池的配置
+      min-idle: 5                                   # 数据库连接池的最小维持连接数
+      initial-size: 5                               # 初始化提供的连接数
+      max-total: 5                                  # 最大的连接数
+      max-wait-millis: 200                          # 等待连接获取的最大超时时间   
+
+mybatis:
+   config-location: classpath:mybatis/mybatis.cfg.xml    #mybatis 配置文件所在路径
+   type-aliases-package: com.entities                  #所有Entity别名类所在包
+   mapper-locations:
+   - classpath:mybatis/mapper/**/*.xml
+
 eureka:
   client:    # 客户端注册到Eureka列表内
     service-url:
-      defaultZone: http://eureka-test.com:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: miccloud-config-dept8001   # 自定义服务名称信息
+    prefer-ip-address: true     # 访问路径可以提升显示IP地址
+
+info:
+  app.name: miccloud
+  company.name: HAND
+  build.artifactid: ${project.artifactId}
+  build.version: ${project.version}
   
